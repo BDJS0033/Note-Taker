@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/BDJS0033/Note-Taker#readme",
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "uuid": "^8.3.2"
   }
 }
