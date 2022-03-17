@@ -1,66 +1,63 @@
-//fs to write to file
+// Dependencies
 const fs = require("fs");
 
-//required 'uuid' npm package for unique id - finally got it to function
-const { v4: uuidv4 } = require("uuid");
+//uuid pacakge - finally got it to work!!
+const { v4: uuidv4 } = require('uuid');
 
-//Starting Export
+//Starting export from the start
 module.exports = function (app) {
 
-    //Creating GET Request
-    app.get("/api/notes", (_req, res) => {
-        console.log("Getting Note");
-
-        //Parsing to JSON so 'db.json' file gets read
-        //utf8 to prevent buffering request
-        const data = JSON.parse(fs.readFileSync("../../db/db.json", "utf8"));
-        console.log("Note:" + JSON.stringify(data));
-        //response of 'GET' request
-        res.json(data);
+    // API GET Request
+    app.get("/api/notes", (request, response) => {
+        //getting message for new note - n/to start new line
+        console.log("\n\n Notes request");
+        //Parse to have information be converted to JSON
+        //fs to read file and syncing all the data - utf8 to prevent buffering
+        let data = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+        //catching error
+        console.log("\nReturn Notes: " + JSON.stringify(data));
+        //Ensuring JSON responds to new data
+        response.json(data);
     });
 
-    //POST Request
-    app.post("/api/notes", (req, res) => {
-        const newNote = req.body;
-        console.log("New Note: " + JSON.stringify(newNote));
-        //uuid comes into play
+    //Setting up POST Requests
+    app.post("/api/notes", (request, response) => {
+        //Extracted new note from request body.  
+        const newNote = request.body;
+        //new line to get a new note POST Request
+        console.log("\n\nNew Note : " + JSON.stringify(newNote));
+
+        //Function now responding by assigning unique ids 
         newNote.id = uuidv4();
 
-        //Read data from 'db.json' file
-        const data = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-
-        //Pushed new note in notes file 'db.json'
+        //Getting file to read from db.json
+        let data = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    
+        //Pushing new notes to db.json - this took time to work
         data.push(newNote);
 
-        // Written notes data to 'db.json' file
-        fs.writeFileSync("./db/db.json", JSON.stringify(data));
-
-        console.log("New Note Created!");
-
+        //Continue to write notes db.json
+        fs.writeFileSync('./db/db.json', JSON.stringify(data));
+        //Success Message
+        console.log("\nAdded a new note to 'db.json' file!");
         // Send response
-        res.json(data);
+        response.json(data);
     });
 
-
-    //Bonus Delete 
-    app.delete("/api/notes/:id", (req, res) => {
-
-        // Fetched id to delete
-        const  noteId = req.params.id.toString();
-
-        console.log(`Delete noteId: ${noteId}`);
-
-        // Read data from 'db.json' file
-        const data = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-
-        // filter data to get notes except the one to delete
-        const newData = data.filter(note => note.id.toString() !== noteId);
-
-        // Write new data to 'db.json' file
-        fs.writeFileSync("./db/db.json", JSON.stringify(newData));
-
-        console.log(`Deleted note with id : ${noteId}`);
-        //response
-        res.json(newData);
+    //Bonus API Delete Function - struggled to get this to respond
+    app.delete("/api/notes/:id", (request, response) => {
+        //getting note by id
+        let noteId = request.params.id.toString();
+        console.log(`\n\nDelete note with id: ${noteId}`);
+        //parsing data to read db.json
+        let data = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+        //added filter to make sure deleted notes are cleared
+        const newData = data.filter( note => note.id.toString() !== noteId );
+        //Writing new data
+        fs.writeFileSync('./db/db.json', JSON.stringify(newData));
+        //success message
+        console.log(`\nNote deleted with id : ${noteId}`);
+        //sending response
+        response.json(newData);
     });
 };
