@@ -1,51 +1,62 @@
-//calling packages
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
-// // Generates random id - not reading it
-// const { v4: uuidv4 } = require("uuidv4");
-
-//Create exporting function - maintain/manage code
-//utf-8 to prevent buffer
 module.exports = app => {
-
-    fs.readFile("../../db/db.json", "utf-8", (err, data) => {
+    
+    // Setup notes variable. UTF8 to remove buffering
+    fs.readFile("./db/db.json", "utf8", (err, data) => {
         if (err) throw err;
-        const notesDB = JSON.parse(data);
+        var notesDB = JSON.parse(data);
 
-        //Creating GET & POST route for notesBD
-        // creating get and post route for notes input
-
-        app.get("/api/notes", function (req, res) {
-            //return as json
+        // Creating GET route
+        app.get("/api/notes", function(_req, res) {
+            //return all saved notes as JSON.
             res.json(notesDB);
         });
 
-        //POST request to add new notes
-        app.post("/api/notes", function (req, res) {
+        // Creating POST
+        app.post("/api/notes", function(req, _res) {
+            // Receives a new note, adds it to db.json, then returns the new note
             let newNote = req.body;
             notesDB.push(newNote);
             updateDb();
-            return console.log("Add Note: " + newNote.title);
+            return console.log("New Note: "+ newNote.title);
         });
 
-        //Creating GET & Delete Request for notes
-        app.get("/api/notes/:id", function (req, res) {
+        // Retrieves a note with ID
+        app.get("/api/notes/:id", function(req, res) {
             res.json(notesDB[req.params.id]);
         });
 
-        app.delete("/api/notes/:id", function (req, res) {
+        // Deletes a note with specific id
+        app.delete("/api/notes/:id", function(req, _res) {
             notesDB.splice(req.params.id, 1);
             updateDb();
-            console.log("Note has been deleted, ID: " + req.params.id);
+            console.log("Delete Note "+req.params.id);
         });
 
-        //Update db.json when notes added and deleted
+        //Added htmlROUTES to Index.js - Keep All Routes together
+       
+        // app.get('/', function (req, res) {
+        //     res.sendFile(path.join(__dirname, "../../public/index.html"));
+        // });
+
+        app.get('/notes', function(_req, res) {
+            res.sendFile(path.join(__dirname, "../../public/notes.html"));
+        });
+
+        app.get('*', function(_req, res) {
+            res.sendFile(path.join(__dirname, "../../public/index.html"));
+        });
+
+        //Function to writefile whenever a note is added or deleted
         function updateDb() {
-            fs.writeFile("../../db/db.json", JSON.stringify(notesDB, '\t'), err => {
+            fs.writeFileSync("./db/db.json", JSON.stringify(notesDB,'\t'), err => {
                 if (err) throw err;
                 return true;
             });
         }
 
-    })};
+    });
+
+}

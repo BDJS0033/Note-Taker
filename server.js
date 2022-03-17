@@ -1,4 +1,5 @@
 //Noting packages
+const fs = require("fs")
 const express = require("express");
 const path = require("path");
 
@@ -7,19 +8,16 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-const apiRoutes = require("./routes/apiRoutes");
-const htmlRoutes = require("./routes/htmlRoutes");
 
 //middleware for parsing/json
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(__dirname));
 
-//Use apiRoutes
-app.use("/api", apiRoutes);
-app.use("/", htmlRoutes);
+//Use require to get all routes API/HTML combined
+require('./routes/apiRoutes')(app);
 
 //starting server
-app.listen(PORT, () => {
+app.listen(PORT, function() {
   console.log(`API server now on port ${PORT}!`);
 });
