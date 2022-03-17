@@ -11,9 +11,9 @@ app.use(express.static("public"));
 
 //Use require to get all routes API/HTML combined
 require("./routes/htmlRoutes")(app);
-require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
 
 //starting server
 app.listen(PORT, function() {
-  console.log(`API server now on port ${PORT}!`);
+  console.log(`API server now on ${PORT}!`);
 });
