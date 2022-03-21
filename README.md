@@ -1,4 +1,4 @@
-# Express.js Challenge: Note Taker
+# Express.js Challenge: Note Taker :notebook:
 
 ## Description
 ---
@@ -30,7 +30,46 @@ THEN that note appears in the right-hand column
 WHEN I click on the Write icon in the navigation at the top of the page
 THEN I am presented with empty fields to enter a new note title and the note’s text in the right-hand column
 ```
-## Image
+## Usage
+____________
+
+To initialize the application, you can do so in one of two ways: 
+
+You can clone the the repository to your development environment:
+
+```
+git@github.com:BDJS0033/Note-Taker.git
+```
+
+Run _npm install_ to install all dependencies. To use the application locally, run _node server.js_ in your CLI, and then open http://localhost:3001 in your preferred browswer. 
+
+## Packages
+______________
+
+Packages requried to be installed:
+
+```
+npm inquirer
+npm jest
+npm uuid
+```
+
+## Technologies Used
+-----
+## Technologies Use
+<p><a href="https://nodejs.org/">Node.js</a></p>
+<p><a href="https://www.npmjs.com/package/express">Express.js</a></p>
+<p><a href="https://www.npmjs.com/package/inquirer">Inquirer.js</a></p>
+<p><a href="https://www.npmjs.com/package/uuid">uuid</a></p>
+<p><a href="https://getbootstrap.com/">Bootstrap</a></p>
+<p><a href="https://fonts.google.com/">Google Fonts</a></p>
+
+## Deployed Link
+_____
+
+Heroku Link: https://sb-note-taker-app.herokuapp.com/
+
+## Preview
 ______________
 
 
@@ -42,6 +81,7 @@ Coming Soon
 ## GitHub
 ________________
 
-GitHub URL https://github.com/BDJS0033/Note-Taker
+GitHub https://github.com/BDJS0033/Note-Taker
 
-Heroku Link: https://sb-note-taker-app.herokuapp.com/
+
+© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
