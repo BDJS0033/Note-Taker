@@ -41,7 +41,9 @@ You can clone the the repository to your development environment:
 git@github.com:BDJS0033/Note-Taker.git
 ```
 
-Run _npm install_ to install all dependencies. To use the application locally, run _node server.js_ in your CLI, and then open http://localhost:3001 in your preferred browswer. 
+**Run _npm install_ to install all dependencies**
+
+To use the application locally, run _node server.js_ in your CLI, and then open http://localhost:3001 in your preferred browswer. 
 
 ## Packages
 ______________
@@ -56,7 +58,6 @@ npm uuid
 
 ## Technologies Used
 -----
-## Technologies Use
 <p><a href="https://nodejs.org/">Node.js</a></p>
 <p><a href="https://www.npmjs.com/package/express">Express.js</a></p>
 <p><a href="https://www.npmjs.com/package/inquirer">Inquirer.js</a></p>
@@ -72,11 +73,13 @@ Heroku Link: https://sb-note-taker-app.herokuapp.com/
 ## Preview
 ______________
 
+![Note-Taker](https://user-images.githubusercontent.com/82056351/159371880-10db95a4-c53d-426c-b81c-8226d16f1915.jpg)
+
 
 ## Video Walkthrough
 ______
 
-Coming Soon
+https://loom.com/share/29ec6f05c4af439cb63b714a3442fc69
 
 ## GitHub
 ________________
